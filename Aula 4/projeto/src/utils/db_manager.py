@@ -28,6 +28,18 @@ class DBManager:
             )
         """
         )
+        self.con.execute(
+            """
+            CREATE TABLE IF NOT EXISTS predictions (
+                id INTEGER PRIMARY KEY,
+                timestamp TIMESTAMP,
+                model_type TEXT,
+                input_data TEXT,
+                predicted_value FLOAT,
+                actual_value FLOAT
+            )
+        """
+        )
 
     def insert_operational_metric(
         self, timestamp, method, url, response_status, latency
@@ -48,6 +60,9 @@ class DBManager:
 
     def fetch_ml_metrics(self):
         return self.con.execute("SELECT * FROM ml_metrics").fetchall()
+
+    def fetch_predictions(self):
+        return self.con.execute("SELECT * FROM predictions").fetchall()
 
     def close(self):
         self.con.close()
