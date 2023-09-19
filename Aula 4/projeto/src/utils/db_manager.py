@@ -1,4 +1,7 @@
 import duckdb
+import datetime
+from ..monitoring.monitor import calculate_rmse, calculate_mae
+import logging
 
 
 class DBManager:
@@ -117,6 +120,29 @@ class DBManager:
             (actual_value, prediction_id),
         )
 
+        # Após atualizar o valor real, dispare o cálculo das métricas
+        self.calculate_and_store_metrics()
+
+    def calculate_and_store_metrics(self):
+        """
+        Calcula as métricas com base nas previsões e nos valores reais e armazena no banco de dados.
+        """
+        # Recuperar todas as previsões que possuem valores reais e previstos
+        predictions_data = self.con.execute(
+            "SELECT predicted_value, actual_value FROM predictions WHERE actual_value IS NOT NULL"
+        ).fetchall()
+
+        true_values = [row[1] for row in predictions_data]
+        predicted_values = [row[0] for row in predictions_data]
+
+        # Calcular RMSE e MAE
+        rmse = calculate_rmse(true_values, predicted_values)
+        mae = calculate_mae(true_values, predicted_values)
+
+        # Armazenar as métricas calculadas no banco de dados
+        timestamp = datetime.datetime.now()
+        self.insert_ml_metric(timestamp, rmse, mae)
+
     def fetch_operational_metrics(self):
         """
         Busca todas as métricas operacionais do banco de dados.
@@ -124,7 +150,17 @@ class DBManager:
         Returns:
         - List[Dict]: Uma lista de dicionários contendo as métricas operacionais.
         """
-        return self.con.execute("SELECT * FROM operational_metrics").fetchall()
+        metrics = self.con.execute("SELECT * FROM operational_metrics").fetchall()
+        metrics_dicts = [
+            dict(
+                zip(
+                    ("id", "timestamp", "method", "url", "response_status", "latency"),
+                    metric,
+                )
+            )
+            for metric in metrics
+        ]
+        return metrics_dicts
 
     def fetch_ml_metrics(self):
         """
@@ -133,7 +169,11 @@ class DBManager:
         Returns:
         - List[Dict]: Uma lista de dicionários contendo as métricas de aprendizado de máquina.
         """
-        return self.con.execute("SELECT * FROM ml_metrics").fetchall()
+        metrics = self.con.execute("SELECT * FROM ml_metrics").fetchall()
+        metrics_dicts = [
+            dict(zip(("id", "timestamp", "rmse", "mae"), metric)) for metric in metrics
+        ]
+        return metrics_dicts
 
     def fetch_predictions(self):
         """
@@ -142,7 +182,24 @@ class DBManager:
         Returns:
         - List[Dict]: Uma lista de dicionários contendo as previsões.
         """
-        return self.con.execute("SELECT * FROM predictions").fetchall()
+        predictions = self.con.execute("SELECT * FROM predictions").fetchall()
+        predictions_dicts = [
+            dict(
+                zip(
+                    (
+                        "id",
+                        "timestamp",
+                        "model_type",
+                        "input_data",
+                        "predicted_value",
+                        "actual_value",
+                    ),
+                    prediction,
+                )
+            )
+            for prediction in predictions
+        ]
+        return predictions_dicts
 
     def close(self):
         """

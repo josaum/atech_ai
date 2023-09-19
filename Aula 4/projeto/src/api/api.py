@@ -1,7 +1,17 @@
 from fastapi import FastAPI, Request
 from src.api import routes
-from src.utils import logger, db_manager
+from src.utils import db_manager
 import datetime
+import logging
+import os
+
+LOGGING_PATH = os.path.join("logs", "app.log")
+logging.basicConfig(
+    filename=LOGGING_PATH,  # specify the file name and path
+    level=logging.DEBUG,  # set the logging level to DEBUG
+    format="%(asctime)s - %(levelname)s - %(message)s",  # specify the format
+    datefmt="%Y-%m-%d %H:%M:%S",
+)  # format for the date in the log messages
 
 
 app = FastAPI()
@@ -21,9 +31,8 @@ async def log_and_store_requests(request: Request, call_next):
     latency = end_time - start_time
     latency_miliseconds = latency.total_seconds() / 1000
 
-    # Log and store details about the request and response
-    logger.log_message(
-        f"{request.method} {request.url} - {response.status_code} (Latency: {latency_miliseconds:.0f} seconds)"
+    logging.info(
+        f"Request: {request.method} {request.url} - Response: {response.status_code} - Latency: {latency_miliseconds} ms"
     )
 
     # Usando o DBManager para inserir métricas no banco de dados
