@@ -1,0 +1,32 @@
+projeto/
+│
+├── data/
+│   ├── raw/            # Dados brutos, não processados
+│   ├── processed/      # Dados processados e prontos para serem usados nos modelos
+│   └── interim/        # Dados intermediários utilizados durante o processamento
+│
+├── notebooks/          # Jupyter notebooks para análise exploratória e prototipagem
+│
+├── src/                # Código-fonte em Python
+│   ├── data/           # Scripts para processar dados
+│   ├── models/         # Scripts para treinar modelos e fazer previsões
+│   ├── utils/          # Funções auxiliares e utilitários
+│   ├── monitoring/     # Scripts e ferramentas para monitoramento
+│   └── api/            # Código da API (se o modelo for servido como uma API)
+│
+├── tests/              # Testes unitários e de integração
+│
+├── model_artifacts/    # Modelos treinados, tokenizadores, e outros artefatos
+│
+├── logs/               # Arquivos de log para monitoramento e rastreamento
+│
+├── docs/               # Documentação do projeto, manuais, etc.
+│
+├── docker/             # Dockerfiles e scripts relacionados
+│
+├── config/             # Configurações do projeto (por exemplo, parâmetros de treinamento)
+│
+├── .gitignore          # Lista de arquivos/pastas ignorados pelo Git
+├── README.md           # Descrição do projeto, instruções de instalação e uso
+├── requirements.txt    # Dependências do projeto
+└── setup.py            # Script de setup para pacotar o projeto como um pacote Python
