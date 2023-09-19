@@ -9,12 +9,15 @@ class DBManager:
         """
         Inicializa o gerenciador do banco de dados.
         """
+        logging.info("Initializing DBManager")
         self.con = duckdb.connect(database="db", read_only=False)
+        logging.info("DBManager initialized successfully")
 
     def setup_tables(self):
         """
         Configura as tabelas no banco de dados, criando sequências e tabelas se não existirem.
         """
+        logging.info("Setting up tables")
         self.con.execute(
             "CREATE SEQUENCE IF NOT EXISTS seq_operational_metrics_id START 1"
         )
@@ -57,6 +60,8 @@ class DBManager:
         """
         )
 
+    logging.info("Tables set up successfully")
+
     def insert_operational_metric(
         self, timestamp, method, url, response_status, latency
     ):
@@ -74,6 +79,7 @@ class DBManager:
             "INSERT INTO operational_metrics (timestamp, method, url, response_status, latency) VALUES (?, ?, ?, ?, ?)",
             (timestamp, method, url, response_status, latency),
         )
+        logging.info("Operational metric inserted successfully")
 
     def insert_ml_metric(self, timestamp, rmse, mae):
         """
@@ -88,6 +94,7 @@ class DBManager:
             "INSERT INTO ml_metrics (timestamp, rmse, mae) VALUES (?, ?, ?)",
             (timestamp, rmse, mae),
         )
+        logging.info("ML metric inserted successfully")
 
     def insert_prediction(
         self, timestamp, model_type, input_data, predicted_value, actual_value=None
@@ -106,6 +113,7 @@ class DBManager:
             "INSERT INTO predictions (timestamp, model_type, input_data, predicted_value, actual_value) VALUES (?, ?, ?, ?, ?)",
             (timestamp, model_type, input_data, predicted_value, actual_value),
         )
+        logging.info("Prediction inserted successfully")
 
     def update_actual_value_by_id(self, prediction_id, actual_value):
         """
@@ -119,6 +127,7 @@ class DBManager:
             "UPDATE predictions SET actual_value = ? WHERE id = ?",
             (actual_value, prediction_id),
         )
+        logging.info("Prediction updated successfully")
 
         # Após atualizar o valor real, dispare o cálculo das métricas
         self.calculate_and_store_metrics()
@@ -142,6 +151,7 @@ class DBManager:
         # Armazenar as métricas calculadas no banco de dados
         timestamp = datetime.datetime.now()
         self.insert_ml_metric(timestamp, rmse, mae)
+        logging.info("Metrics calculated and stored successfully")
 
     def fetch_operational_metrics(self):
         """
@@ -160,6 +170,7 @@ class DBManager:
             )
             for metric in metrics
         ]
+        logging.info("Operational metrics fetched successfully")
         return metrics_dicts
 
     def fetch_ml_metrics(self):
@@ -173,6 +184,7 @@ class DBManager:
         metrics_dicts = [
             dict(zip(("id", "timestamp", "rmse", "mae"), metric)) for metric in metrics
         ]
+        logging.info("ML metrics fetched successfully")
         return metrics_dicts
 
     def fetch_predictions(self):
@@ -199,6 +211,7 @@ class DBManager:
             )
             for prediction in predictions
         ]
+        logging.info("Predictions fetched successfully")
         return predictions_dicts
 
     def close(self):

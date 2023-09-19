@@ -1,0 +1,4 @@
+2023-09-19 03:34:41 - INFO - Models trained and saved successfully.
+2023-09-19 03:34:41 - INFO - Request: POST http://127.0.0.1:8000/train - Response: 200 - Latency: 0.0015521180000000001 ms
+2023-09-19 03:34:52 - INFO - Prediction saved for model baseline.
+2023-09-19 03:34:52 - INFO - Request: POST http://127.0.0.1:8000/predict - Response: 200 - Latency: 6.377e-06 ms
