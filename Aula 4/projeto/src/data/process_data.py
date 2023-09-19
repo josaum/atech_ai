@@ -53,8 +53,10 @@ def process_data(con):
         )
 
     for column in NUMERIC_COLUMNS:
-        # Set empty strings to NULL before attempting conversion
-        con.execute(f"UPDATE raw_dataset SET {column} = CAST({column} AS FLOAT)")
+        # Use TRY_CAST to attempt conversion, ignoring nulls
+        con.execute(
+            f"UPDATE raw_dataset SET {column} = TRY_CAST({column} AS REAL) WHERE {column} IS NOT NULL"
+        )
 
     # Convert specified columns and create a new date column
     con.execute(f"ALTER TABLE raw_dataset ADD COLUMN {NEW_DATE_COLUMN} DATE")
