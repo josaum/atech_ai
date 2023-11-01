@@ -1,0 +1,51 @@
+consumo,tipo,capacidade,ano_fabricacao,nacionalidade,velocidade_maxima
+2.15,bombardeiro,2,1998,Índia,1938
+2.65,transporte,11,2007,Reino Unido,2181
+2.31,treinamento,23,1989,China,1210
+2.13,reconhecimento,12,2017,Reino Unido,1467
+1.77,treinamento,3,1961,Israel,774
+2.44,treinamento,17,1991,Índia,1360
+1.81,treinamento,33,2014,Índia,543
+3.18,reconhecimento,1,2004,Alemanha,1607
+3.39,treinamento,20,1984,Rússia,933
+1.65,treinamento,14,1984,China,1309
+2.88,treinamento,31,1963,China,593
+2.09,caça,25,1978,Japão,1698
+2.2,treinamento,3,2007,Rússia,1929
+3.28,reconhecimento,4,1963,Alemanha,701
+0.71,transporte,31,2002,Japão,2381
+0.76,caça,14,1972,França,998
+0.56,bombardeiro,9,1998,USA,980
+3.0,bombardeiro,20,1995,China,829
+2.83,reconhecimento,32,1982,Alemanha,2064
+3.11,caça,9,1965,Alemanha,709
+3.44,caça,27,1983,USA,1117
+2.9,bombardeiro,3,2003,Japão,2478
+1.88,transporte,4,1992,Rússia,2420
+2.84,treinamento,15,1971,Rússia,2099
+0.85,transporte,33,2000,USA,1540
+2.42,caça,5,1980,Reino Unido,606
+0.93,reconhecimento,4,1970,Japão,664
+3.33,transporte,12,2014,Japão,1106
+2.07,transporte,23,2003,França,2060
+1.74,caça,14,1997,França,1128
+1.29,bombardeiro,12,1988,USA,1715
+2.82,caça,17,2007,Israel,1719
+1.87,transporte,25,2000,Reino Unido,1831
+2.21,transporte,30,1962,Índia,636
+0.56,reconhecimento,22,1987,Reino Unido,1452
+2.35,transporte,26,1979,China,1359
+2.34,reconhecimento,17,1985,Rússia,1617
+2.35,transporte,20,1983,Rússia,2415
+3.33,bombardeiro,34,2013,China,1250
+2.55,transporte,33,2011,Rússia,1611
+1.58,reconhecimento,7,2006,França,660
+1.81,reconhecimento,22,1980,China,647
+2.59,reconhecimento,32,2013,Alemanha,1084
+0.68,transporte,14,1989,Alemanha,955
+2.5,reconhecimento,8,1963,Alemanha,1611
+2.51,treinamento,25,1995,China,1537
+1.13,bombardeiro,16,1999,Alemanha,1838
+0.89,transporte,19,1969,Índia,2117
+1.45,reconhecimento,16,1969,Índia,1644
+1.59,bombardeiro,12,2001,Brasil,2408

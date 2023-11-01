@@ -75,8 +75,8 @@ def save_processed_data(con, table_name, output_path):
 def main():
     """Main function to handle data processing."""
     con = connect_to_db()
-    load_data_into_db(con, "raw_dataset", INPUT_PATH)
-    process_data(con)
+    load_data_into_db(con, "raw_dataset", INPUT_PATH)  # E/L
+    process_data(con)  # T
     save_processed_data(con, "raw_dataset", OUTPUT_PATH)
     con.close()
 
